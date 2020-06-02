@@ -1,4 +1,5 @@
 package com.codecool.ccms.dao;
 
-public abstract class Dao {
+public interface Dao {
+    void connect();
 }

@@ -1,4 +1,4 @@
 package com.codecool.ccms.dao;
 
-public class UserDao extends Dao{
+public class UserDao extends DatabaseDao{
 }
