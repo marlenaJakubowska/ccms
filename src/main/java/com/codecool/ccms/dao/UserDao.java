@@ -1,4 +1,6 @@
 package com.codecool.ccms.dao;
 
-public class UserDao extends DatabaseDao{
+import com.codecool.ccms.models.User;
+
+public class UserDao extends DatabaseDao<User>{
 }

@@ -1,4 +1,6 @@
 package com.codecool.ccms.dao;
 
-public class AssignmentDao extends DatabaseDao{
+import com.codecool.ccms.models.Assignment;
+
+public class AssignmentDao extends DatabaseDao<Assignment>{
 }
