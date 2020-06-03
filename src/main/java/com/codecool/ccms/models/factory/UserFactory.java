@@ -12,23 +12,23 @@ public class UserFactory implements AbstractFactory<User> {
     }
 
     @Override
-    public User create(int id, String firstName, String surname, String email, String password, Role role) {
+    public User create(int id, String name, String surname, String email, String password, Role role) {
 
         switch (role.toString()) {
             case "MANAGER":
-                User manager = new Manager(id, firstName, surname, email, password, role);
+                User manager = new Manager(id, name, surname, email, password, role);
                 return manager;
 
             case "MENTOR":
-                User mentor = new Mentor(id, firstName, surname, email, password, role);
+                User mentor = new Mentor(id, name, surname, email, password, role);
                 return mentor;
 
-            case "ADMINEMPLOYEE":
-                User adminEmployee = new AdminEmployee(id, firstName, surname, email, password, role);
+            case "ADMIN":
+                User adminEmployee = new AdminEmployee(id, name, surname, email, password, role);
                 return adminEmployee;
 
             case "STUDENT":
-                User student = new Student(id, firstName, surname, email, password, role);
+                User student = new Student(id, name, surname, email, password, role);
                 return student;
 
             default:

@@ -39,7 +39,17 @@ public abstract class DaoImpl<T> implements Dao<T> {
         String query = String.format("INSERT INTO %s (%s) VALUES (%s);", table,
                 columnsAsQuery, valuesAsQuery);
         executeQuery(query);
+    }
+
+    public void edit(String table, String column, String newValue, String condition) {
+        if (column.toLowerCase().equals("id")) {
+            System.out.println("Unable to change id");
+            return;
+        }
+        String query = String.format("UPDATE %s SET %s = %s WHERE %s;", table, column, newValue, condition);
+        executeQuery(query);
+        }
 
     }
 
-}
+

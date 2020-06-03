@@ -8,9 +8,9 @@ public abstract class User {
     private final String password;
     private final Role role;
 
-    public User(int id, String firstName, String surname, String email, String password, Role role) {
+    public User(int id, String name, String surname, String email, String password, Role role) {
         this.id = id;
-        this.firstName = firstName;
+        this.firstName = name;
         this.surname = surname;
         this.email = email;
         this.password = password;

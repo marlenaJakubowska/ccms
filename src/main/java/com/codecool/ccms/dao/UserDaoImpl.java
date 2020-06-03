@@ -19,11 +19,11 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
         try {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                int id = resultSet.getInt("ID");
-                String firstName = resultSet.getString("First_name");
-                String surname = resultSet.getString("Surname");
-                String email = resultSet.getString("Email");
-                String password = resultSet.getString("Password");
+                int id = resultSet.getInt("id");
+                String firstName = resultSet.getString("name");
+                String surname = resultSet.getString("surname");
+                String email = resultSet.getString("email");
+                String password = resultSet.getString("password");
                 Role role = Role.valueOf(resultSet.getInt("roleId"));
                 User user = new UserFactory(this).create(id, firstName, surname, email, password, role);
                 users.add(user);
@@ -44,7 +44,7 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
     }
 
     private void createUserColumns(String[] values) {
-        String[] columns = {"First_name", "Surname", "Email", "Password", "roleId"};
+        String[] columns = {"name", "surname", "email", "password", "roleId"};
         for (int i = 0; i < 5; i++) {
             values[i] = String.format("'%s'", values[i]);
         }
@@ -52,16 +52,20 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
     }
 
     @Override
-    public void remove(User user) {
-        String query = "DELETE FROM User WHERE id = '" + user.getId() +
-                "' AND roleId = '" + user.getRole().toString() + "'";
+    public void remove(int userId) {
+        String query = "DELETE FROM User WHERE id = '" + userId + "'";
         executeQuery(query);
+    }
+
+    public void prepareToEdit(String table, String id, String column, String newValue) {
+        String condition = String.format("id = %s", id);
+        edit(table, column, newValue, condition);
 
     }
 
-    @Override
-    public void update(String id, String... values) {
-
+    public void editUser(String id, String column, String newValue) {
+        newValue = String.format("'%s'", newValue);
+        prepareToEdit("User", id, column, newValue);
     }
 
     @Override
@@ -69,29 +73,6 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
         return null;
     }
 
-//TO BE IMPLEMENTED
-//    @Override
-//    public void remove(String table, String id) {
-//        String query = String.format("DELETE FROM %s WHERE Id = %s;", table, id);
-//        executeQuery(query);
-//
-//    }
-//
-//    protected void updateById(String table, String id, String column, String newValue) {
-//        String condition = String.format("id = %s", id);
-//        update(table, column, newValue, condition);
-//    }
-//
-//    @Override
-//    public void update(String table, String column, String newValue, String condition) {
-//        if (column.toLowerCase().equals("id")) {
-//            System.out.println("Unable to change id");
-//            return;
-//        }
-//        String query = String.format("UPDATE %s SET %s = %s WHERE %s;", table, column, newValue, condition);
-//        executeQuery(query);
-//    }
-//
 //    @Override
 //    public List<User> getAll() {
 //        return getUsers("SELECT * FROM users;");
