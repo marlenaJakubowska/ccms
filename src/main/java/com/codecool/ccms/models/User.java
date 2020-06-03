@@ -1,4 +1,43 @@
 package com.codecool.ccms.models;
 
 public abstract class User {
+    private final int id;
+    private final String firstName;
+    private final String surname;
+    private final String email;
+    private final String password;
+    private final Role role;
+
+    public User(int id, String firstName, String surname, String email, String password, Role role) {
+        this.id = id;
+        this.firstName = firstName;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
 }

@@ -6,7 +6,5 @@ import java.util.List;
 
 public interface UserDao extends Dao<User> {
 
-    void addUserToDB(String[] values);
     List<User> getAll();
-
 }

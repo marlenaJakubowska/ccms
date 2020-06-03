@@ -8,49 +8,28 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
 
     protected Connection connection;
     protected Statement statement;
 
-    public void connect() {
-        try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/school");
-            statement = connection.createStatement();
-        } catch (ClassNotFoundException e) {
-            e.getStackTrace();
-        } catch (SQLException e) {
-            System.out.println("Could not connect to DB " + e.getMessage());
-        }
-    }
 
-    private void executeQuery(String  query){
-        connect();
-        try {
-            statement.execute(query);
-            statement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
+    //ADD FACTORY
     private List<User> getUsers(String query) {
         List<User> users = new ArrayList<>();
         connect();
         try {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String firstName = resultSet.getString("first_name");
-                String surname = resultSet.getString("surname");
-                String email = resultSet.getString("email");
-                String password = resultSet.getString("password");
+                int id = resultSet.getInt("ID");
+                String firstName = resultSet.getString("First_name");
+                String surname = resultSet.getString("Surname");
+                String email = resultSet.getString("Email");
+                String password = resultSet.getString("Password");
                 Role role = Role.valueOf(resultSet.getInt("roleId"));
                 //factory here
-                User user = new Mentor(); //test
-                users.add(user);
+//                User user = new Mentor(); //test
+//                users.add(user);
             }
             resultSet.close();
             statement.close();
@@ -62,48 +41,62 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void add(String table, String[] columns, String[] values) {
-        String columnsAsQuery = String.join(",", columns);
-        String valuesAsQuery = String.join(",", values);
-        String query = String.format("INSERT INTO %s (%s) VALUES (%s);", table,
-                columnsAsQuery, valuesAsQuery);
-        executeQuery(query);
-
+    public void add(User user) {
+        createUserColumns(new String[] {user.getFirstName(), user.getSurname(), user.getEmail(),
+                user.getPassword(), user.getRole().toString()});
     }
 
-    public void addUserToDB(String[] values) {
-        String[] columns = {"name", "surname", "email", "password", "role"};
-        for (int i = 0; i < columns.length; i++) {
+    private void createUserColumns(String[] values) {
+        String[] columns = {"First_name", "Surname", "Email", "Password", "roleId"};
+        for (int i = 0; i < 5; i++) {
             values[i] = String.format("'%s'", values[i]);
         }
-        String table = "users";
-        add(table, columns, values);
+        add("User", columns, values);
     }
 
     @Override
-    public void remove(String table, String id) {
-        String query = String.format("DELETE FROM %s WHERE Id = %s;", table, id);
+    public void remove(User user) {
+        String query = "DELETE FROM User WHERE id = '" + user.getId() +
+                "' AND roleId = '" + user.getRole().toString() + "'";
         executeQuery(query);
 
     }
 
-    protected void updateById(String table, String id, String column, String newValue) {
-        String condition = String.format("id = %s", id);
-        update(table, column, newValue, condition);
-    }
-
     @Override
-    public void update(String table, String column, String newValue, String condition) {
-        if (column.toLowerCase().equals("id")) {
-            System.out.println("Unable to change id");
-            return;
-        }
-        String query = String.format("UPDATE %s SET %s = %s WHERE %s;", table, column, newValue, condition);
-        executeQuery(query);
+    public void update(String id, String... values) {
+
     }
 
     @Override
     public List<User> getAll() {
-        return getUsers("SELECT * FROM users;");
+        return null;
     }
+
+//TO BE IMPLEMENTED
+//    @Override
+//    public void remove(String table, String id) {
+//        String query = String.format("DELETE FROM %s WHERE Id = %s;", table, id);
+//        executeQuery(query);
+//
+//    }
+//
+//    protected void updateById(String table, String id, String column, String newValue) {
+//        String condition = String.format("id = %s", id);
+//        update(table, column, newValue, condition);
+//    }
+//
+//    @Override
+//    public void update(String table, String column, String newValue, String condition) {
+//        if (column.toLowerCase().equals("id")) {
+//            System.out.println("Unable to change id");
+//            return;
+//        }
+//        String query = String.format("UPDATE %s SET %s = %s WHERE %s;", table, column, newValue, condition);
+//        executeQuery(query);
+//    }
+//
+//    @Override
+//    public List<User> getAll() {
+//        return getUsers("SELECT * FROM users;");
+//    }
 }
