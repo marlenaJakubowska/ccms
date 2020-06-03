@@ -2,24 +2,11 @@ package com.codecool.ccms.dao;
 
 import com.codecool.ccms.models.User;
 
-public class UserDao extends Dao<User> {
-    @Override
-    public void add() {
+import java.util.List;
 
-    }
+public interface UserDao extends Dao<User> {
 
-    @Override
-    public void remove() {
+    void addUserToDB(String[] values);
+    List<User> getAll();
 
-    }
-
-    @Override
-    public void edit() {
-
-    }
-
-    @Override
-    public void update() {
-
-    }
 }
