@@ -1,8 +1,8 @@
 package com.codecool.ccms.dao;
 
-import com.codecool.ccms.models.Mentor;
 import com.codecool.ccms.models.Role;
 import com.codecool.ccms.models.User;
+import com.codecool.ccms.models.factory.UserFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,8 +13,6 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
     protected Connection connection;
     protected Statement statement;
 
-
-    //ADD FACTORY
     private List<User> getUsers(String query) {
         List<User> users = new ArrayList<>();
         connect();
@@ -27,9 +25,8 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
                 String email = resultSet.getString("Email");
                 String password = resultSet.getString("Password");
                 Role role = Role.valueOf(resultSet.getInt("roleId"));
-                //factory here
-//                User user = new Mentor(); //test
-//                users.add(user);
+                User user = new UserFactory(this).create(id, firstName, surname, email, password, role);
+                users.add(user);
             }
             resultSet.close();
             statement.close();
