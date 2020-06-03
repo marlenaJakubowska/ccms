@@ -1,4 +1,6 @@
-package com.codecool.ccms;
+package com.codecool.ccms.models;
+
+import com.codecool.ccms.view.View;
 
 /**
  * Hello world!
@@ -10,4 +12,6 @@ public class App
     {
         System.out.println( "test" );
     }
+    View view = new View();
+
 }
