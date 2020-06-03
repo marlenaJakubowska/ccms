@@ -85,5 +85,8 @@ fabric.properties
 hs_err_pid*
 
 /target
-
+.classpath
+.project
+.settings/
+.idea/codeStyles/
 # End of https://www.gitignore.io/api/java,intellij
