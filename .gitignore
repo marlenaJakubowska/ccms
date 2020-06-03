@@ -89,4 +89,6 @@ hs_err_pid*
 .project
 .settings/
 .idea/codeStyles/
+.idea/encodings.xml
+
 # End of https://www.gitignore.io/api/java,intellij
