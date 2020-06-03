@@ -20,12 +20,12 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                String firstName = resultSet.getString("name");
+                String name = resultSet.getString("name");
                 String surname = resultSet.getString("surname");
                 String email = resultSet.getString("email");
                 String password = resultSet.getString("password");
                 Role role = Role.valueOf(resultSet.getInt("roleId"));
-                User user = new UserFactory(this).create(id, firstName, surname, email, password, role);
+                User user = new UserFactory(this).create(id, name, surname, email, password, role);
                 users.add(user);
             }
             resultSet.close();
@@ -39,15 +39,20 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
 
     @Override
     public void add(User user) {
-        createUserColumns(new String[] {user.getFirstName(), user.getSurname(), user.getEmail(),
-                user.getPassword(), user.getRole().toString()});
+        System.out.println("test2");
+        String id = String.valueOf(user.getId());
+        String role = String.valueOf(user.getRole());
+        createUserColumns(new String[] {id, user.getName(), user.getSurname(), user.getEmail(),
+                user.getPassword(), role});
     }
 
     private void createUserColumns(String[] values) {
-        String[] columns = {"name", "surname", "email", "password", "roleId"};
-        for (int i = 0; i < 5; i++) {
+        System.out.println("test3");
+        String[] columns = {"id", "name", "surname", "email", "password", "roleId"};
+        for (int i = 0; i < 6; i++) {
             values[i] = String.format("'%s'", values[i]);
         }
+        System.out.println("test4");
         add("User", columns, values);
     }
 
@@ -65,16 +70,12 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
 
     public void editUser(String id, String column, String newValue) {
         newValue = String.format("'%s'", newValue);
-        prepareToEdit("User", id, column, newValue);
+        prepareToEdit("Users", id, column, newValue);
     }
+
 
     @Override
     public List<User> getAll() {
-        return null;
+        return getUsers("SELECT * FROM users;");
     }
-
-//    @Override
-//    public List<User> getAll() {
-//        return getUsers("SELECT * FROM users;");
-//    }
 }

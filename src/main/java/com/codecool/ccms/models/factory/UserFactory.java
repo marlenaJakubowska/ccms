@@ -1,14 +1,16 @@
 package com.codecool.ccms.models.factory;
 
+
 import com.codecool.ccms.dao.UserDao;
+import com.codecool.ccms.dao.UserDaoImpl;
 import com.codecool.ccms.models.*;
 
 public class UserFactory implements AbstractFactory<User> {
 
-    private final UserDao userDao;
+    private final UserDaoImpl userDaoImpl;
 
-    public UserFactory(UserDao userDao) {
-        this.userDao = userDao;
+    public UserFactory(UserDaoImpl userDaoImpl) {
+        this.userDaoImpl = userDaoImpl;
     }
 
     @Override

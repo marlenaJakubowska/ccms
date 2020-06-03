@@ -23,4 +23,15 @@ public enum Role {
         }
         return map.get(roleId);
     }
+
+
+    public static Map<Integer, String> createEnumMap() {
+        Map<Integer, String> roleMap = new HashMap<>();
+        roleMap.put(1, "MANAGER");
+        roleMap.put(2, "MENTOR");
+        roleMap.put(3, "ADMIN");
+        roleMap.put(4, "STUDENT");
+        return roleMap;
+    }
+
 }

@@ -2,7 +2,7 @@ package com.codecool.ccms.models;
 
 public abstract class User {
     private final int id;
-    private final String firstName;
+    private final String name;
     private final String surname;
     private final String email;
     private final String password;
@@ -10,7 +10,7 @@ public abstract class User {
 
     public User(int id, String name, String surname, String email, String password, Role role) {
         this.id = id;
-        this.firstName = name;
+        this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
@@ -21,8 +21,8 @@ public abstract class User {
         return id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
     public String getSurname() {
@@ -40,4 +40,12 @@ public abstract class User {
     public Role getRole() {
         return role;
     }
+
+    public String[] toStringList() {
+        String id = Integer.toString(this.getId());
+        String[] stringList = {id, this.getName(), this.getSurname(), this.getEmail(),
+                this.getRole().toString()};
+        return stringList;
+    }
+
 }
