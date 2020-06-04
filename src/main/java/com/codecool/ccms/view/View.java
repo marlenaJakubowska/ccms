@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
+
 import com.jakewharton.fliptables.FlipTable;
 import com.jakewharton.fliptables.FlipTableConverters;
 
@@ -17,19 +19,20 @@ public class View {
     }
 
     public String takeUserInput(String message) {
-        System.out.println(message);
-        boolean validInput = true;
         String userInput;
-        do {
-            if(!validInput) {
-                System.out.println("Please enter at least one character");
+        Scanner scan = new Scanner(System.in);
+        boolean invalidInput;
+        Pattern pattern = Pattern.compile("[^a-zA-Z0-9@]");
+
+        do{
+            System.out.println(message);
+            userInput = scan.nextLine();
+            invalidInput = pattern.matcher(userInput).find();
+
+            if(invalidInput){
+                System.out.println("That's not a valid input");
             }
-            validInput = false;
-            userInput = scanner.nextLine();
-            if(!userInput.equals("")) {
-                validInput = true;
-            }
-        } while (!validInput);
+        }while (invalidInput);
         return userInput;
     }
 

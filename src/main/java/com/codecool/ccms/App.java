@@ -13,7 +13,6 @@ public class App
     {
         UserDaoImpl userDao = new UserDaoImpl();
 
-
         //ManagerMenuController managerMenuController = new ManagerMenuController(userDao);
         
         //MentorMenuController mentorMenuController = new MentorMenuController(userDao);
@@ -21,7 +20,7 @@ public class App
         //managerMenuController.addMentor();
         //managerMenuController.displayUserByRole();
 
-        LoginController loginController = new LoginController();
+        //LoginController loginController = new LoginController();
 //        mentorMenuController.addStudent();
 //
 //        mentorMenuController.addStudent();
