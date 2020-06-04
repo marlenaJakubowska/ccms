@@ -36,7 +36,7 @@ public class ManagerMenuController extends MenuController{
 
     private void createMainMenuMap() {
         mainMenuMap.put("1", this::addMentor);
-        //mainMenuMap.put("2", this::removeMentor);  //TO DO
+        mainMenuMap.put("2", this::removeUser);
         //mainMenuMap.put("3", this::editMentor);   // TO DO
         mainMenuMap.put("4", this::displayUserByRole);   // TO DO
         mainMenuMap.put("5", this::displayAllUsers);
