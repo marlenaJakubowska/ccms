@@ -14,10 +14,9 @@ public class ManagerMenuController extends MenuController{
 
     public ManagerMenuController(User user, View view) {
         super(user,view);
-        System.out.println("testing managerMenuController");
+        createMainMenuMap();
         userDaoImpl = new UserDaoImpl();
         userFactory = new UserFactory(userDaoImpl);
-
     }
 
     public void addMentor() {
@@ -33,6 +32,14 @@ public class ManagerMenuController extends MenuController{
         String role = view.takeUserInput("Enter user role. 1 - manager," +
                 " 2 - mentor, 3 - administration, 4 - student");
         userDaoImpl.createPrintQueryUserTable("*", "roleId = " + role);
+    }
+
+    private void createMainMenuMap() {
+        mainMenuMap.put("1", this::addMentor);
+        //mainMenuMap.put("2", this::removeMentor);  //TO DO
+        //mainMenuMap.put("3", this::editMentor);   // TO DO
+        mainMenuMap.put("4", this::displayUserByRole);   // TO DO
+        mainMenuMap.put("5", this::displayAllUsers);
     }
 
 //    TO BE CONTINUED
