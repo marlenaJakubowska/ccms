@@ -46,7 +46,7 @@ public class View {
         String[] headers = {"Options you can access:"};
         String[][] data = {
                 {"[1] Add new mentor"},
-                {"[2] Remove any user"},
+                {"[2] Remove mentor"},
                 {"[3] Edit mentor"},
                 {"[4] Show list of users by role"},
                 {"[5] Show list of all users"},
