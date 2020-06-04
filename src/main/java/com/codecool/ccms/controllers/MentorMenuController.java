@@ -14,7 +14,8 @@ public class MentorMenuController extends MenuController {
 
     public MentorMenuController(User user, View view) {
         super(user, view);
-        System.out.println("testing mentorMenuController");
+        createMainMenuMap();
+
         userDaoImpl = new UserDaoImpl();
         userFactory = new UserFactory(userDaoImpl);
     }
@@ -23,8 +24,15 @@ public class MentorMenuController extends MenuController {
         addUser(Role.valueOf("STUDENT"));
     }
 
-    public void displayAllStudents() {
-        userDaoImpl.sendPrintQueryToDB("SELECT name, surname, email FROM User WHERE roleID = 4");
+    private void createMainMenuMap() {
+        mainMenuMap.put("1", this::displayAllStudents);
+        mainMenuMap.put("2", this::addStudent);
+        //mainMenuMap.put("3", this::editStudent);   // TO DO
+        //mainMenuMap.put("4", this::removeStudent);   // TO DO
+        //mainMenuMap.put("5", this::checkAttendance);   // TO DO
+        //mainMenuMap.put("6", this::addAssignment);   // TO DO
+        //mainMenuMap.put("7", this::gradeAssignment);   // TO DO
+
     }
 
 }

@@ -10,28 +10,11 @@ public class LoginController {
 
     private View view;
     private MenuController menuController;
-    private boolean loggedAsManager;
-    private boolean loggedAsMentor;
-    private boolean loggedAsStudent;
-    private UserDaoImpl userDaoImpl;
-
 
     public LoginController() {
         view = new View();
         User user = logIn();
-    }
-
-    private void setMenuController(User loggedUser) {
-        if (loggedUser instanceof Manager) {
-            new ManagerMenuController(loggedUser, view);
-        } else if(loggedUser instanceof Mentor){
-            new MentorMenuController(loggedUser, view);
-        } else if(loggedUser instanceof Student) {
-            new StudentMenuController(loggedUser, view);
-        } else {
-            new AdminMenuController(loggedUser, view);
-        }
-
+        setMenuController(user);
     }
 
     private User logIn() {
@@ -58,4 +41,21 @@ public class LoginController {
                 "SELECT * FROM User WHERE email = '" + email + "' AND password = '"
                         + password + "';");
     }
+
+    private void setMenuController(User loggedUser) {
+        if (loggedUser instanceof Manager) {
+            menuController = new ManagerMenuController(loggedUser, view);
+            menuController.handleMenu(menuController.getMainMenuMap(), view::printManagerMenu);
+        } else if(loggedUser instanceof Mentor){
+            menuController = new MentorMenuController(loggedUser, view);
+            menuController.handleMenu(menuController.getMainMenuMap(), view::printMentorMenu);
+        } else if(loggedUser instanceof Student) {
+            menuController = new StudentMenuController(loggedUser, view);
+            menuController.handleMenu(menuController.getMainMenuMap(), view::printStudentMenu);
+        } else {
+            menuController = new AdminMenuController(loggedUser, view);
+            menuController.handleMenu(menuController.getMainMenuMap(), view::printOfficeWorkerMenu);
+        }
+    }
+
 }

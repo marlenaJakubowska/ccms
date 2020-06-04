@@ -11,8 +11,12 @@ public class StudentMenuController extends MenuController{
 
     public StudentMenuController(User user, View view) {
         super(user, view);
-        System.out.println("testing studentMenuController");
         userDaoImpl = new UserDaoImpl();
+        createMainMenuMap();
+    }
 
+    private void createMainMenuMap() {
+        //mainMenuMap.put("1", this::submitAssignment); //TO DO
+        //mainMenuMap.put("2", this::showGrades); //TO DO
     }
 }
