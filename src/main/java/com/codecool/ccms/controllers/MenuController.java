@@ -9,11 +9,19 @@ import com.codecool.ccms.view.View;
 
 public abstract class MenuController {
 
-    private static View view = new View();
-
-    public static UserDaoImpl userDao = new UserDaoImpl();
-    private static UserFactory userFactory = new UserFactory(userDao);
+    protected final View view;
+    private final UserDaoImpl userDaoImpl;
+    protected User user;
+    private final UserFactory userFactory;
     private Role role;
+
+    public MenuController(User user, View view) {
+        this.user = user;
+        this.view = view;
+        this.userDaoImpl = new UserDaoImpl();
+        this.userFactory = new UserFactory(userDaoImpl);
+
+    }
 
     public void addUser(Role role) {
         System.out.println("Chosen option - add mentor");
@@ -25,7 +33,7 @@ public abstract class MenuController {
         //System.out.println(role.toString());
         int id = -1; //default value
         User user = userFactory.create(id, name, surname,email,password, role);
-        userDao.add(user);
+        userDaoImpl.add(user);
 
     }
 }
