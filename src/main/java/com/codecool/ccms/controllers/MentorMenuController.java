@@ -24,6 +24,13 @@ public class MentorMenuController extends MenuController {
         addUser(Role.valueOf("STUDENT"));
     }
 
+    private void editStudent() {
+        int role = Role.STUDENT.getRoleId();
+        String roleString = String.valueOf(role);
+        userDaoImpl.createPrintQueryUserTable("*", "roleId = " + roleString);
+        editUser();
+    }
+
     private void removeStudent() {
         removeUserByRole(Role.valueOf("STUDENT"));
 
@@ -32,7 +39,7 @@ public class MentorMenuController extends MenuController {
     private void createMainMenuMap() {
         mainMenuMap.put("1", this::displayAllStudents);
         mainMenuMap.put("2", this::addStudent);
-        //mainMenuMap.put("3", this::editStudent);   // TO DO
+        mainMenuMap.put("3", this::editStudent);
         mainMenuMap.put("4", this::removeStudent);
         //mainMenuMap.put("5", this::checkAttendance);   // TO DO
         //mainMenuMap.put("6", this::addAssignment);   // TO DO

@@ -53,6 +53,14 @@ public abstract class MenuController {
         userDaoImpl.remove(id);
     }
 
+    public void editUser(){
+        String id = view.takeUserInput("Enter user id to edit: ");
+        String column = view.takeUserInput("Enter user column: ");
+        String newValue = view.takeUserInput("Enter new value: ");
+        userDaoImpl.edit(id, column, newValue);
+
+    }
+
     public void handleMenu(Map<String, Runnable> menuMap, Runnable uiMenu) {
         boolean isRunning = true;
         do {
