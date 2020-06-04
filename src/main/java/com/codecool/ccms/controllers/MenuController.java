@@ -62,6 +62,6 @@ public abstract class MenuController {
     }
 
     public void displayAllStudents() {
-        userDaoImpl.sendPrintQueryToDB("SELECT name, surname, email FROM User WHERE roleID = 4");
+        userDaoImpl.sendPrintQueryToDB("SELECT id, name, surname, email FROM User WHERE roleID = 4");
     }
 }
