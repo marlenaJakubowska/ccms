@@ -24,16 +24,12 @@ public abstract class DaoImpl<T> implements Dao<T> {
     }
 
     public void executeQuery(String  query){
-        System.out.println("test7");
         connect();
-        System.out.println("test8");
         try {
             statement.execute(query);
-            System.out.println("test9");
             statement.close();
             connection.close();
         } catch (SQLException e) {
-            System.out.println("test10");
             e.printStackTrace();
         }
     }
@@ -45,12 +41,9 @@ public abstract class DaoImpl<T> implements Dao<T> {
         String query = String.format("INSERT INTO %s (%s) VALUES (%s);", table,
                 columnsAsQuery, valuesAsQuery);
         System.out.println(query);
-        System.out.println("test6");
         connect();
-        System.out.println("test2.1");
         try {
             statement.execute(query);
-            System.out.println("test2.2");
         } catch (SQLException e) {
             e.printStackTrace();
         }

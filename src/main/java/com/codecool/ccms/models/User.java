@@ -1,6 +1,6 @@
 package com.codecool.ccms.models;
 
-public abstract class User {
+public class User {
     private final int id;
     private final String name;
     private final String surname;

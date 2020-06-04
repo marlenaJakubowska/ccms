@@ -6,17 +6,38 @@ import com.codecool.ccms.models.factory.UserFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.sql.ResultSet;
 import java.util.List;
 
 public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
 
-    protected Connection connection;
-    protected Statement statement;
+    private static int nextInt;
+
+    public UserDaoImpl() {
+        nextInt = getCurrentMaxId();
+    }
+
+    private int getCurrentMaxId() {
+        String query = "SELECT MAX(id) AS maxId FROM User;";
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            int maxId = resultSet.getInt("maxId") + 1;
+            statement.close();
+            connection.close();
+            return maxId;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
+    }
 
     private List<User> getUsers(String query) {
         List<User> users = new ArrayList<>();
         connect();
         try {
+            System.out.println(query);
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -25,6 +46,7 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
                 String email = resultSet.getString("email");
                 String password = resultSet.getString("password");
                 Role role = Role.valueOf(resultSet.getInt("roleId"));
+                System.out.println(role);
                 User user = new UserFactory(this).create(id, name, surname, email, password, role);
                 users.add(user);
             }
@@ -39,20 +61,17 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
 
     @Override
     public void add(User user) {
-        System.out.println("test2");
-        String id = String.valueOf(user.getId());
-        String role = String.valueOf(user.getRole());
+        String id = String.valueOf(nextInt++);
+        String role = String.valueOf(user.getRole().getRoleId());
         createUserColumns(new String[] {id, user.getName(), user.getSurname(), user.getEmail(),
                 user.getPassword(), role});
     }
 
     private void createUserColumns(String[] values) {
-        System.out.println("test3");
         String[] columns = {"id", "name", "surname", "email", "password", "roleId"};
         for (int i = 0; i < 6; i++) {
             values[i] = String.format("'%s'", values[i]);
         }
-        System.out.println("test4");
         add("User", columns, values);
     }
 
@@ -70,12 +89,13 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
 
     public void editUser(String id, String column, String newValue) {
         newValue = String.format("'%s'", newValue);
-        prepareToEdit("Users", id, column, newValue);
+        prepareToEdit("User", id, column, newValue);
     }
 
 
     @Override
     public List<User> getAll() {
-        return getUsers("SELECT * FROM users;");
+        System.out.println("test3.1");
+        return getUsers("SELECT * FROM User;");
     }
 }

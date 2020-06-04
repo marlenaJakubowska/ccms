@@ -32,9 +32,8 @@ public class ManagerMenuController extends MenuController{
         System.out.println(password);
         Role role = Role.valueOf("MENTOR");
         System.out.println(role.toString());
-        int id = 1; //get last id from user table
+        int id = -1; //default value
         User user = userFactory.create(id, name, surname,email,password, role);
-        System.out.println("test1");
         userDao.add(user);
     }
 
