@@ -39,7 +39,6 @@ public abstract class DaoImpl<T> implements Dao<T> {
         String valuesAsQuery = String.join(",", values);
         String query = String.format("INSERT INTO %s (%s) VALUES (%s);", table,
                 columnsAsQuery, valuesAsQuery);
-        System.out.println(query);
         connect();
         try {
             statement.execute(query);
