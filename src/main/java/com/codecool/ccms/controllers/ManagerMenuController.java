@@ -21,21 +21,23 @@ public class ManagerMenuController extends MenuController{
     }
 
     public void addMentor() {
-        System.out.println("Chosen option - add mentor");
-        String name = view.takeUserInput("Enter name: ");
-        System.out.println(name);
-        String surname = view.takeUserInput("Enter surname: ");
-        System.out.println(surname);
-        String email = name + surname + "@cc.com";
-        System.out.println(email);
-        String password = "password";
-        System.out.println(password);
-        Role role = Role.valueOf("MENTOR");
-        System.out.println(role.toString());
-        int id = -1; //default value
-        User user = userFactory.create(id, name, surname,email,password, role);
-        userDao.add(user);
+        addUser(Role.valueOf("MENTOR"));
     }
+
+    public void displayAllUsers() {
+        userDao.sendPrintQueryToDB("SELECT * FROM User");
+    }
+
+    //TO BE CONTINUED
+//    public void displayUserByRole() {
+//        String role = view.takeUserInput("Enter user role. 1 - manager," +
+//                " 2 - mentor, 3 - administration, 4 - student");
+//        //userDao.
+//    }
+//
+//    public void displayAllMentorsSafe() {
+//        //userDao.createPrintQueryUserTable();
+//    }
 
 }
 
