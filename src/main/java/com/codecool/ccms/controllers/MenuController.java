@@ -40,6 +40,19 @@ public abstract class MenuController {
         userDaoImpl.add(user);
     }
 
+    public void removeUser() {
+        String idInput = view.takeUserInput("Enter user id to remove: ");
+        int id = Integer.parseInt(idInput);
+        userDaoImpl.remove(id);
+    }
+
+    public void removeUserByRole(Role role) {
+        this.role = role;
+        String idInput = view.takeUserInput("Enter user id to remove: ");
+        int id = Integer.parseInt(idInput);
+        userDaoImpl.remove(id);
+    }
+
     public void handleMenu(Map<String, Runnable> menuMap, Runnable uiMenu) {
         boolean isRunning = true;
         do {

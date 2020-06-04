@@ -20,15 +20,20 @@ public class MentorMenuController extends MenuController {
         userFactory = new UserFactory(userDaoImpl);
     }
 
-    public void addStudent() {
+    private void addStudent() {
         addUser(Role.valueOf("STUDENT"));
+    }
+
+    private void removeStudent() {
+        removeUserByRole(Role.valueOf("STUDENT"));
+
     }
 
     private void createMainMenuMap() {
         mainMenuMap.put("1", this::displayAllStudents);
         mainMenuMap.put("2", this::addStudent);
         //mainMenuMap.put("3", this::editStudent);   // TO DO
-        //mainMenuMap.put("4", this::removeStudent);   // TO DO
+        mainMenuMap.put("4", this::removeStudent);
         //mainMenuMap.put("5", this::checkAttendance);   // TO DO
         //mainMenuMap.put("6", this::addAssignment);   // TO DO
         //mainMenuMap.put("7", this::gradeAssignment);   // TO DO
