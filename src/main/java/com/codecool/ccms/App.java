@@ -12,15 +12,12 @@ public class App
     {
         UserDaoImpl userDao = new UserDaoImpl();
 
-        ManagerMenuController managerMenuController = new ManagerMenuController(userDao;
+        ManagerMenuController managerMenuController = new ManagerMenuController(userDao);
         
         MentorMenuController mentorMenuController = new MentorMenuController(userDao);
+        managerMenuController.displayAllUsers();
         //managerMenuController.addMentor();
-        mentorMenuController.addStudent();
-        for (User user : userDao.getAll()) {
-            System.out.println(user.toString());
-        }
-        mentorMenuController.addStudent();
+        //mentorMenuController.addStudent();
 
     }
 }

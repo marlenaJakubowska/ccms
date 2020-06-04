@@ -21,7 +21,6 @@ public abstract class DaoImpl<T> implements Dao<T> {
         } catch (SQLException e) {
             System.out.println("Could not connect to DB " + e.getMessage());
         }
-        System.out.println("connected to db"); //for testing
     }
 
     public void executeQuery(String  query){
