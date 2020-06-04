@@ -57,16 +57,6 @@ public abstract class DaoImpl<T> implements Dao<T> {
         String query = String.format("UPDATE %s SET %s = %s WHERE %s;", table, column, newValue, condition);
         executeQuery(query);
         }
-
-
-
-
-//
-//    public void getLastIncrementedId(String table) {
-//    String query = "'SELECT id from'" + table + "'order by id DESC limit 1'";
-//    executeQuery(query);
-//
-//    }
 }
 
 

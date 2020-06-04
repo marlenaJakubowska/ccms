@@ -92,7 +92,6 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
         prepareToEdit("User", id, column, newValue);
     }
 
-
     @Override
     public List<User> getAll() {
         System.out.println("test3.1");
