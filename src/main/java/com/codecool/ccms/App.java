@@ -1,5 +1,6 @@
 package com.codecool.ccms;
 
+import com.codecool.ccms.controllers.LoginController;
 import com.codecool.ccms.controllers.ManagerMenuController;
 import com.codecool.ccms.controllers.MentorMenuController;
 import com.codecool.ccms.dao.UserDaoImpl;
@@ -17,7 +18,12 @@ public class App
         MentorMenuController mentorMenuController = new MentorMenuController(userDao);
         managerMenuController.displayAllUsers();
         //managerMenuController.addMentor();
-        //mentorMenuController.addStudent();
+        managerMenuController.displayUserByRole();
+
+        LoginController loginController = new LoginController();
+//        mentorMenuController.addStudent();
+//
+//        mentorMenuController.addStudent();
 
     }
 }

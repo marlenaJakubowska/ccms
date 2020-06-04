@@ -33,11 +33,10 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
         return 0;
     }
 
-    private List<User> getUsers(String query) {
+    public List<User> getUsers(String query) {
         List<User> users = new ArrayList<>();
         connect();
         try {
-            System.out.println(query);
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
