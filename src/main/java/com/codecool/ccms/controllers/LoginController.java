@@ -10,9 +10,12 @@ public class LoginController {
 
     private View view;
     private MenuController menuController;
+    private UserDaoImpl userDao;
 
     public LoginController() {
         view = new View();
+        userDao = new UserDaoImpl();
+        userDao.displayAllUsersForTest(); //For presentation
         User user = logIn();
         setMenuController(user);
     }
