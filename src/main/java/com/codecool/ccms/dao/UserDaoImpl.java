@@ -94,4 +94,11 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
     public List<User> getAll() {
         return getUsers("SELECT * FROM User;");
     }
+
+
+    //FOR PRESENTATION
+    public void displayAllUsersForTest() {
+        sendPrintQueryToDB("SELECT * FROM User");
+    }
+
 }
