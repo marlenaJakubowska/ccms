@@ -28,15 +28,16 @@ public class ManagerMenuController extends MenuController{
         userDao.sendPrintQueryToDB("SELECT * FROM User");
     }
 
-    //TO BE CONTINUED
-//    public void displayUserByRole() {
-//        String role = view.takeUserInput("Enter user role. 1 - manager," +
-//                " 2 - mentor, 3 - administration, 4 - student");
-//        //userDao.
-//    }
-//
+
+    public void displayUserByRole() {
+        String role = view.takeUserInput("Enter user role. 1 - manager," +
+                " 2 - mentor, 3 - administration, 4 - student");
+        userDao.createPrintQueryUserTable("*", "roleId = " + role);
+    }
+
+//    TO BE CONTINUED
 //    public void displayAllMentorsSafe() {
-//        //userDao.createPrintQueryUserTable();
+//        userDao.createPrintQueryUserTable();
 //    }
 
 }

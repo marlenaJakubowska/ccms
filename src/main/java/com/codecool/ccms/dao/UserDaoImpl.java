@@ -94,7 +94,6 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
 
     @Override
     public List<User> getAll() {
-        System.out.println("test3.1");
         return getUsers("SELECT * FROM User;");
     }
 }
