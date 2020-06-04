@@ -83,7 +83,6 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
     public void prepareToEdit(String table, String id, String column, String newValue) {
         String condition = String.format("id = %s", id);
         edit(table, column, newValue, condition);
-
     }
 
     public void editUser(String id, String column, String newValue) {

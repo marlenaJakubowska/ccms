@@ -1,7 +1,5 @@
 package com.codecool.ccms.models.factory;
 
-
-import com.codecool.ccms.dao.UserDao;
 import com.codecool.ccms.dao.UserDaoImpl;
 import com.codecool.ccms.models.*;
 

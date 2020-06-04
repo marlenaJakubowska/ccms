@@ -27,7 +27,6 @@ public class ManagerMenuController extends MenuController{
         userDaoImpl.sendPrintQueryToDB("SELECT * FROM User");
     }
 
-
     public void displayUserByRole() {
         String role = view.takeUserInput("Enter user role. 1 - manager," +
                 " 2 - mentor, 3 - administration, 4 - student");
@@ -41,11 +40,5 @@ public class ManagerMenuController extends MenuController{
         mainMenuMap.put("4", this::displayUserByRole);   // TO DO
         mainMenuMap.put("5", this::displayAllUsers);
     }
-
-//    TO BE CONTINUED
-//    public void displayAllMentorsSafe() {
-//        userDao.createPrintQueryUserTable();
-//    }
-
 }
 

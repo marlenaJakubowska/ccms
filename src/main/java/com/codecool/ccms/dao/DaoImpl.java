@@ -56,7 +56,6 @@ public abstract class DaoImpl<T> implements Dao<T> {
         executeQuery(query);
         }
 
-
     public void createPrintQueryForDB(String table, String columns, String condition) {
         String where = condition.isEmpty() ? "" : "WHERE " + condition;
         String query = String.format("SELECT %s FROM %s %s;", columns, table, where);
@@ -72,17 +71,10 @@ public abstract class DaoImpl<T> implements Dao<T> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
-    //TO BE CONTINUED
     public void createPrintQueryUserTable(String column, String condition) {
         createPrintQueryForDB("User", column, condition);
-    }
-
-    public void displayVariousColumns(String table, String[] columns, String condition) {
-        String columnsAsQuery = String.join(",", columns);
-        String query = String.format("SELECT %s FROM %s %s;", columnsAsQuery, table, condition);
     }
 }
 
