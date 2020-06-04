@@ -16,8 +16,6 @@ public class View {
         System.out.println(FlipTableConverters.fromResultSet(resultSet));
     }
 
-
-
     public String takeUserInput(String message) {
         System.out.println(message);
         boolean validInput = true;

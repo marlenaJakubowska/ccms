@@ -11,7 +11,9 @@ public class App
     public static void main( String[] args )
     {
         UserDaoImpl userDao = new UserDaoImpl();
-        //ManagerMenuController managerMenuController = new ManagerMenuController(userDao);
+
+        ManagerMenuController managerMenuController = new ManagerMenuController(userDao;
+        
         MentorMenuController mentorMenuController = new MentorMenuController(userDao);
         //managerMenuController.addMentor();
         mentorMenuController.addStudent();
@@ -19,5 +21,6 @@ public class App
             System.out.println(user.toString());
         }
         mentorMenuController.addStudent();
+
     }
 }
