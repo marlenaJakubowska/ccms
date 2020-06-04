@@ -1,7 +1,7 @@
 package com.codecool.ccms.controllers;
 
 import com.codecool.ccms.dao.UserDaoImpl;
-import com.codecool.ccms.models.User;
+import com.codecool.ccms.models.*;
 import com.codecool.ccms.view.View;
 
 import java.util.List;
@@ -10,22 +10,40 @@ public class LoginController {
 
     private View view;
     private MenuController menuController;
+    private boolean loggedAsManager;
+    private boolean loggedAsMentor;
+    private boolean loggedAsStudent;
+    private UserDaoImpl userDaoImpl;
+
 
     public LoginController() {
         view = new View();
         User user = logIn();
     }
 
+    private void setMenuController(User loggedUser) {
+        if (loggedUser instanceof Manager) {
+            new ManagerMenuController(loggedUser, view);
+        } else if(loggedUser instanceof Mentor){
+            new MentorMenuController(loggedUser, view);
+        } else if(loggedUser instanceof Student) {
+            new StudentMenuController(loggedUser, view);
+        } else {
+            new AdminMenuController(loggedUser, view);
+        }
+
+    }
+
     private User logIn() {
         User loggedUser;
         String email;
         do {
-            email = view.takeUserInput("Email: ").toLowerCase();
+            email = view.takeUserInput("Email: ");
             String password = view.takeUserInput("Password: ");
             loggedUser = loginTry(email, password);
         } while (loggedUser == null);
         System.out.println("Logged in");
-        //loggedAsAdmin = loggedUser instanceof Admin;   //needed later on
+        setMenuController(loggedUser);
         return loggedUser;
     }
 
