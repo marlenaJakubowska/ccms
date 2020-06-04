@@ -13,12 +13,13 @@ public class App
     {
         UserDaoImpl userDao = new UserDaoImpl();
 
-        ManagerMenuController managerMenuController = new ManagerMenuController(userDao);
+
+        //ManagerMenuController managerMenuController = new ManagerMenuController(userDao);
         
-        MentorMenuController mentorMenuController = new MentorMenuController(userDao);
-        managerMenuController.displayAllUsers();
+        //MentorMenuController mentorMenuController = new MentorMenuController(userDao);
+        //managerMenuController.displayAllUsers();
         //managerMenuController.addMentor();
-        managerMenuController.displayUserByRole();
+        //managerMenuController.displayUserByRole();
 
         LoginController loginController = new LoginController();
 //        mentorMenuController.addStudent();

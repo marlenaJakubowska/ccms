@@ -9,11 +9,14 @@ import com.codecool.ccms.view.View;
 public class MentorMenuController extends MenuController {
 
     private static View view = new View();
+    private final UserDaoImpl userDaoImpl;
+    private final UserFactory userFactory;
 
-    public static UserDaoImpl userDao = new UserDaoImpl();
-    private static UserFactory userFactory = new UserFactory(userDao);
-
-    public MentorMenuController(UserDaoImpl userDaoImpl) {
+    public MentorMenuController(User user, View view) {
+        super(user, view);
+        System.out.println("testing mentorMenuController");
+        userDaoImpl = new UserDaoImpl();
+        userFactory = new UserFactory(userDaoImpl);
     }
 
     public void addStudent() {
@@ -21,7 +24,7 @@ public class MentorMenuController extends MenuController {
     }
 
     public void displayAllStudents() {
-        userDao.sendPrintQueryToDB("SELECT name, surname, email FROM User WHERE roleID = 4");
+        userDaoImpl.sendPrintQueryToDB("SELECT name, surname, email FROM User WHERE roleID = 4");
     }
 
 }
