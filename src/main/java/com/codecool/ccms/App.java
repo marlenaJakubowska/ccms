@@ -3,6 +3,7 @@ package com.codecool.ccms;
 import com.codecool.ccms.controllers.ManagerMenuController;
 import com.codecool.ccms.dao.UserDaoImpl;
 import com.codecool.ccms.models.User;
+import com.codecool.ccms.view.View;
 
 public class App
 {
