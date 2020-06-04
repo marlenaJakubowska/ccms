@@ -22,7 +22,7 @@ public class View {
         String userInput;
         Scanner scan = new Scanner(System.in);
         boolean invalidInput;
-        Pattern pattern = Pattern.compile("[^a-zA-Z0-9@]");
+        Pattern pattern = Pattern.compile("[^a-zA-Z0-9@.]");
 
         do{
             System.out.println(message);

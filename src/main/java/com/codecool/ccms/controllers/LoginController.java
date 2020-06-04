@@ -13,13 +13,17 @@ public class LoginController {
     private UserDaoImpl userDao;
 
     public LoginController() {
+        init();
+    }
+
+    public void init() {
         view = new View();
         userDao = new UserDaoImpl();
         userDao.displayAllUsersForTest(); //For presentation
         User user = logIn();
         setMenuController(user);
-    }
 
+    }
     private User logIn() {
         User loggedUser;
         String email;
