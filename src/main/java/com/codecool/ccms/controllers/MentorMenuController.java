@@ -14,7 +14,6 @@ public class MentorMenuController extends MenuController {
     private static UserFactory userFactory = new UserFactory(userDao);
 
     public MentorMenuController(UserDaoImpl userDaoImpl) {
-
     }
 
     public void addStudent() {

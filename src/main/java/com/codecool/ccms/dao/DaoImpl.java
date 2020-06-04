@@ -76,14 +76,14 @@ public abstract class DaoImpl<T> implements Dao<T> {
     }
 
     //TO BE CONTINUED
-//    public void createPrintQueryUserTable(String column, String condition) {
-//        createPrintQueryForDB("User", column, condition);
-//    }
-//
-//    public void displayVariousColumns(String table, String[] columns, String condition) {
-//        String columnsAsQuery = String.join(",", columns);
-//        String query = String.format("SELECT %s FROM %s %s;", columnsAsQuery, table, condition);
-//    }
+    public void createPrintQueryUserTable(String column, String condition) {
+        createPrintQueryForDB("User", column, condition);
+    }
+
+    public void displayVariousColumns(String table, String[] columns, String condition) {
+        String columnsAsQuery = String.join(",", columns);
+        String query = String.format("SELECT %s FROM %s %s;", columnsAsQuery, table, condition);
+    }
 }
 
 
