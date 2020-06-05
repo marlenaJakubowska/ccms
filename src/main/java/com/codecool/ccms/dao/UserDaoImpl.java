@@ -33,11 +33,10 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
         return 0;
     }
 
-    private List<User> getUsers(String query) {
+    public List<User> getUsers(String query) {
         List<User> users = new ArrayList<>();
         connect();
         try {
-            System.out.println(query);
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -84,17 +83,22 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
     public void prepareToEdit(String table, String id, String column, String newValue) {
         String condition = String.format("id = %s", id);
         edit(table, column, newValue, condition);
-
     }
 
-    public void editUser(String id, String column, String newValue) {
+    public void edit(String id, String column, String newValue) {
         newValue = String.format("'%s'", newValue);
         prepareToEdit("User", id, column, newValue);
     }
 
     @Override
     public List<User> getAll() {
-        System.out.println("test3.1");
         return getUsers("SELECT * FROM User;");
     }
+
+
+    //FOR PRESENTATION
+    public void displayAllUsersForTest() {
+        sendPrintQueryToDB("SELECT * FROM User");
+    }
+
 }

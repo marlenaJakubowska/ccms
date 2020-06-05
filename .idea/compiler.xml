@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ccms" target="13.0.2" />
+      <module name="ccms" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
