@@ -101,4 +101,10 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
         sendPrintQueryToDB("SELECT * FROM User");
     }
 
+    public void addAttendance(String time) {
+        String[] columns = {"datetime"};
+        String[] values = {time};
+        add("Attendance", columns, values);
+    }
+
 }
