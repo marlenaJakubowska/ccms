@@ -47,7 +47,7 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
                 String email = resultSet.getString("email");
                 String password = resultSet.getString("password");
                 Role role = Role.valueOf(resultSet.getInt("roleId"));
-                System.out.println(role);
+                //System.out.println(role); dupa debug
                 User user = new UserFactory(this).create(id, name, surname, email, password, role);
                 users.add(user);
             }
