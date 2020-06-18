@@ -1,4 +1,4 @@
-package com.codecool.ccms.models.factory;
+package com.codecool.ccms.models;
 
 public class Attendance {
     private final int student_ID;

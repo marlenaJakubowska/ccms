@@ -2,7 +2,7 @@ package com.codecool.ccms.dao;
 
 import com.codecool.ccms.models.Role;
 import com.codecool.ccms.models.User;
-import com.codecool.ccms.models.factory.Attendance;
+import com.codecool.ccms.models.Attendance;
 import com.codecool.ccms.models.factory.UserFactory;
 import com.codecool.ccms.view.View;
 
