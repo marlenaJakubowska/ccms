@@ -12,11 +12,23 @@ public class StudentMenuController extends MenuController{
     public StudentMenuController(User user, View view) {
         super(user, view);
         userDaoImpl = new UserDaoImpl();
+
+        //addUserAssigment(assignment);
         createMainMenuMap();
     }
 
     private void createMainMenuMap() {
-        //mainMenuMap.put("1", this::submitAssignment); //TO DO
-        //mainMenuMap.put("2", this::showGrades); //TO DO
+        mainMenuMap.put("1", this::submitAssignment);
+        mainMenuMap.put("2", this::showGrades);
     }
+
+
+
+    public void submitAssignment(){
+        addUserAssigment(assignment);
+    }
+
+    private void showGrades() { displayYourGrades(); }
+    //editUserAssigment();
+
 }

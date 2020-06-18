@@ -1,6 +1,7 @@
 package com.codecool.ccms.controllers;
 
 import com.codecool.ccms.dao.UserDaoImpl;
+import com.codecool.ccms.models.Assignment;
 import com.codecool.ccms.models.Role;
 import com.codecool.ccms.models.User;
 import com.codecool.ccms.models.factory.UserFactory;
@@ -17,6 +18,7 @@ public abstract class MenuController {
     private final UserFactory userFactory;
     private Role role;
     protected Map<String, Runnable> mainMenuMap;
+    protected Assignment assignment;
 
     public MenuController(User user, View view) {
         this.user = user;
@@ -58,7 +60,6 @@ public abstract class MenuController {
         String column = view.takeUserInput("Enter user column: ");
         String newValue = view.takeUserInput("Enter new value: ");
         userDaoImpl.edit(id, column, newValue);
-
     }
 
     public void handleMenu(Map<String, Runnable> menuMap, Runnable uiMenu) {
@@ -84,5 +85,39 @@ public abstract class MenuController {
 
     public void displayAllStudents() {
         userDaoImpl.sendPrintQueryToDB("SELECT id, name, surname, email FROM User WHERE roleID = 4");
+    }
+
+    public void addUserAssigment(Assignment Assigment) {
+        System.out.println("Add new assigment");
+        String name = view.takeUserInput("Enter name: ");
+        String description = view.takeUserInput("Enter description: ");
+        String author = user.getName();
+        String grade = "0";
+        int id = -1; //default value
+        Assignment assignment = new Assignment(id, name, description,grade,author);
+        userDaoImpl.addAssigment(assignment);
+    }
+
+    public void removeAssigment() {
+        String idInput = view.takeUserInput("Enter assigment id to remove: ");
+        int id = Integer.parseInt(idInput);
+        userDaoImpl.removeAssignment(id);
+    }
+
+    public void displayYourGrades(){
+        String autorToFormat = user.getName();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("'");
+        stringBuilder.append(autorToFormat);
+        stringBuilder.append("'");
+        String autor = stringBuilder.toString();
+        userDaoImpl.sendPrintQueryToDB("SELECT id, name, description, author FROM Assignmnet WHERE author ="+autor);
+    }
+
+    public void editUserAssigment(){
+        String id = view.takeUserInput("Enter user id to edit: ");
+        String newValue = view.takeUserInput("Enter new value: ");
+        String column = "grade";
+        userDaoImpl.editAssigment(id, column, newValue);
     }
 }

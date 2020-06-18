@@ -1,5 +1,6 @@
 package com.codecool.ccms.dao;
 
+import com.codecool.ccms.models.Assignment;
 import com.codecool.ccms.models.Role;
 import com.codecool.ccms.models.User;
 import com.codecool.ccms.models.factory.UserFactory;
@@ -99,6 +100,41 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
     //FOR PRESENTATION
     public void displayAllUsersForTest() {
         sendPrintQueryToDB("SELECT * FROM User");
+    }
+
+
+    public void displayAllAssigmentForTest() {
+        sendPrintQueryToDB("SELECT * FROM Assignmnet");
+    }
+
+    //ASSIGMENT
+
+    public void addAssigment(Assignment assignment) {
+        String id = String.valueOf(nextInt++);
+        createAssigmentColumns(new String[] {assignment.getName(), assignment.getDescription(),assignment.getGrade(),assignment.getAuthor()});
+    }
+
+    private void createAssigmentColumns(String[] values) {
+        String[] columns = {"name", "description","grade","author"};
+        for (int i = 0; i < 4; i++) {
+            values[i] = String.format("'%s'", values[i]);
+        }
+        add("Assignmnet", columns, values);
+    }
+
+    public void removeAssignment(int assigmentId) {
+        String query = "DELETE FROM Assignmnet WHERE id = '" + assigmentId + "'";
+        executeQuery(query);
+    }
+
+    public void prepareToEditAssigment(String table, String id, String column, String newValue) {
+        String condition = String.format("id = %s", id);
+        edit(table, column, newValue, condition);
+    }
+
+    public void editAssigment(String id, String column, String newValue) {
+        newValue = String.format("'%s'", newValue);
+        prepareToEditAssigment("Assignmnet", id, column, newValue);
     }
 
 }
