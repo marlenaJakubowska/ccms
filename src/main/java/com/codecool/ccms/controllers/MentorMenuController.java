@@ -41,8 +41,8 @@ public class MentorMenuController extends MenuController {
 
     private void checkAttendance() {
         LocalDate commonDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd");
-        String time = formatter.format(commonDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String time = String.format("'%s'", formatter.format(commonDate));
         System.out.println(time);
         userDaoImpl.addAttendance(time);
 

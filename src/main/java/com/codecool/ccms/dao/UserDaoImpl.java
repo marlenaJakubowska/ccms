@@ -107,4 +107,33 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
         add("Attendance", columns, values);
     }
 
+    public String foreignAttendanceKey() {
+        int idToParse = getCurrentMaxAttendanceId();
+        String id = String.valueOf(idToParse);
+        return id;
+    }
+
+    private int getCurrentMaxAttendanceId() {
+        String query = "SELECT MAX(id) AS maxId FROM Attendance;";
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            int maxId = resultSet.getInt("maxId") + 1;
+            statement.close();
+            connection.close();
+            return maxId;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
+    }
+
+    public List<User> getAllStudents() {
+        return getUsers("SELECT * FROM User WHERE roleID = '4';");
+    }
+
+
+
+
 }
