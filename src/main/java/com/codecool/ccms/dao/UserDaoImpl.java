@@ -1,8 +1,10 @@
 package com.codecool.ccms.dao;
 
+import com.codecool.ccms.inputProvider.InputProvider;
 import com.codecool.ccms.models.Role;
 import com.codecool.ccms.models.User;
 import com.codecool.ccms.models.factory.UserFactory;
+import com.codecool.ccms.view.View;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
                 String email = resultSet.getString("email");
                 String password = resultSet.getString("password");
                 Role role = Role.valueOf(resultSet.getInt("roleId"));
-                System.out.println(role);
+                //System.out.println(role); dupa debug
                 User user = new UserFactory(this).create(id, name, surname, email, password, role);
                 users.add(user);
             }
@@ -99,6 +101,86 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
     //FOR PRESENTATION
     public void displayAllUsersForTest() {
         sendPrintQueryToDB("SELECT * FROM User");
+    }
+
+    public void addAttendance(String time) {
+        String[] columns = {"datetime"};
+        String[] values = {time};
+        add("Attendance", columns, values);
+        attendanceCheck();
+    }
+
+    public String foreignAttendanceKey() {
+        int idToParse = getCurrentMaxAttendanceId();
+        String id = String.valueOf(idToParse);
+        return id;
+    }
+
+    private int getCurrentMaxAttendanceId() {
+        String query = "SELECT MAX(id) AS maxId FROM Attendance;";
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            int maxId = resultSet.getInt("maxId") + 1;
+            statement.close();
+            connection.close();
+            return maxId;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
+    }
+
+    List<User> getStudents(){
+        List<User> students = getUsers("SELECT * FROM User WHERE roleID = '4';");
+        return students;
+    }
+
+    public List<String> getAllStudentsNames() {
+        List<String> getUsersNames = new ArrayList<>();
+        for (int i = 0; i < getStudents().size(); i++){
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(getStudents().get(i).getName());
+            stringBuilder.append(" ");
+            stringBuilder.append(getStudents().get(i).getSurname());
+            getUsersNames.add(stringBuilder.toString());
+        }
+        return getUsersNames;
+    }
+
+    public List<String> getAllStudentsID() {
+        List<String> studentsIDs = new ArrayList<>();
+        for (int i = 0; i < getStudents().size(); i++) {
+            int idToParse = getStudents().get(i).getId();
+            String id = String.valueOf(idToParse);
+            studentsIDs.add(id);
+        }
+        return studentsIDs;
+    }
+
+
+    private void createAttendanceCheckColumns(String studentID, String attendanceID, String presence) {
+        String[] columns = {"student_ID", "attendance_ID", "presence"};
+        String[] values = {studentID, attendanceID, presence};
+        for (int i = 0; i < 3; i++) {
+            values[i] = String.format("'%s'", values[i]);
+        }
+        add("Attendance_check", columns, values);
+    }
+
+    private void attendanceCheck() {
+        View view = new View();
+        System.out.println("If student is present put 0, if student is absence, put 1\n");
+        String studentID = "";
+        String attendanceID = foreignAttendanceKey();
+        String presence = "";
+        for (int i = 0; i < getAllStudentsNames().size(); i++) {
+            System.out.println(getAllStudentsNames().get(i));
+            presence = view.takeUserInput("Is he present? : ");
+            studentID = getAllStudentsID().get(i);
+            createAttendanceCheckColumns(studentID, attendanceID, presence);
+        }
     }
 
 }
