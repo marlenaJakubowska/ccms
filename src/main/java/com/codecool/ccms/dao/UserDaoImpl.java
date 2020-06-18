@@ -1,8 +1,8 @@
 package com.codecool.ccms.dao;
 
-import com.codecool.ccms.inputProvider.InputProvider;
 import com.codecool.ccms.models.Role;
 import com.codecool.ccms.models.User;
+import com.codecool.ccms.models.Attendance;
 import com.codecool.ccms.models.factory.UserFactory;
 import com.codecool.ccms.view.View;
 
@@ -181,6 +181,27 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
             studentID = getAllStudentsID().get(i);
             createAttendanceCheckColumns(studentID, attendanceID, presence);
         }
+    }
+
+    public List<Attendance> getAttendance(String query) {
+        List<Attendance> attendances = new ArrayList<>();
+        connect();
+        try {
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                int student_id = resultSet.getInt("student_id");
+                int attendance_id = resultSet.getInt("attendance_id");
+                int precence = resultSet.getInt("presence");
+                Attendance attendance = new Attendance(student_id, attendance_id, precence);
+                attendances.add(attendance);
+            }
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return attendances;
     }
 
 }
