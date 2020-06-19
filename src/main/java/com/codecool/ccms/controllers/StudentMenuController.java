@@ -16,7 +16,16 @@ public class StudentMenuController extends MenuController{
     }
 
     private void createMainMenuMap() {
-        //mainMenuMap.put("1", this::submitAssignment); //TO DO
-        //mainMenuMap.put("2", this::showGrades); //TO DO
+        mainMenuMap.put("1", this::submitAssignment);
+        mainMenuMap.put("2", this::showGrades);
     }
+
+
+
+    public void submitAssignment(){
+        addUserAssigment(assignment);
+    }
+
+    private void showGrades() { displayYourGrades(); }
+
 }

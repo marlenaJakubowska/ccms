@@ -73,8 +73,7 @@ public class View {
                 {"[3] Edit student data"},
                 {"[4] Remove student from class"},
                 {"[5] Check attendance of students"},
-                {"[6] Add an assignments"},
-                {"[7] Grade an assignments"}
+                {"[6] Grade an assignments"},
         };
         System.out.println(FlipTable.of(headers,data));
     }

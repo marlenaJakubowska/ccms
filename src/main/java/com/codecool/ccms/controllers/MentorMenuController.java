@@ -51,8 +51,7 @@ public class MentorMenuController extends MenuController {
         mainMenuMap.put("3", this::editStudent);
         mainMenuMap.put("4", this::removeStudent);
         mainMenuMap.put("5", this::checkAttendance);
-        //mainMenuMap.put("6", this::addAssignment);   // TO DO
-        //mainMenuMap.put("7", this::gradeAssignment);   // TO DO
+        mainMenuMap.put("6", this::gradeUserAssigment);
     }
 
 }
