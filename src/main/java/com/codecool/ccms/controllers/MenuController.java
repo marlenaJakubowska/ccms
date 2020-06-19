@@ -115,6 +115,7 @@ public abstract class MenuController {
     }
 
     public void gradeUserAssigment(){
+        userDaoImpl.displayAllAssigment();
         String id = view.takeUserInput("Enter user id to edit: ");
         String newValue = view.takeUserInput("Enter new value: ");
         String column = "grade";

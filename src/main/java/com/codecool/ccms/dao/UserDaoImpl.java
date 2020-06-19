@@ -233,4 +233,8 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
         prepareToGradeAssigment("Assignmnet", id, column, newValue);
     }
 
+    public void displayAllAssigment() {
+        sendPrintQueryToDB("SELECT * FROM Assignmnet");
+    }
+
 }
