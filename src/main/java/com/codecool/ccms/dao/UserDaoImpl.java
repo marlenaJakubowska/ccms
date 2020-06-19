@@ -110,7 +110,6 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
         String[] values = {time};
         add("Attendance", columns, values);
         attendanceCheck();
-        view.printStudentAttendance(countingPresence());
     }
 
     public String foreignAttendanceKey() {
@@ -271,6 +270,7 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
             pair.append(name);
             pair.append(" ");
             pair.append(percentageValue);
+            pair.append(" %");
             presenceToPrint.add(pair.toString());
         }
         return presenceToPrint;
