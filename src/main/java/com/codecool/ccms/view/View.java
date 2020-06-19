@@ -87,4 +87,10 @@ public class View {
         System.out.println(FlipTable.of(headers,data));
     }
 
+    public void printStudentAttendance(List<String> list) {
+        for (String pair : list) {
+            System.out.println(pair);
+        }
+    }
+
 }

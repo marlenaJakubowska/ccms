@@ -105,10 +105,12 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
     }
 
     public void addAttendance(String time) {
+        View view = new View();
         String[] columns = {"datetime"};
         String[] values = {time};
         add("Attendance", columns, values);
         attendanceCheck();
+        view.printStudentAttendance(countingPresence());
     }
 
     public String foreignAttendanceKey() {
@@ -236,5 +238,43 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
     public void displayAllAssigment() {
         sendPrintQueryToDB("SELECT * FROM Assignmnet");
     }
+
+    public List<Attendance> getStudentAttendances() {
+        List<Attendance> attendance = getAttendance("SELECT * FROM Attendance_check;");
+        return attendance;
+    }
+
+    public List<String> countingPresence() {
+        List<String> presenceToPrint = new ArrayList<>();
+        int absence = 0;
+        int presence = 0;
+        double percentageOfPresence = 0;
+        for (int i = 0; i < getAllStudentsID().size(); i++) {
+            StringBuilder pair = new StringBuilder();
+            String studentID = getAllStudentsID().get(i);
+            String name = getAllStudentsNames().get(i);
+            for (int j = 0; j < getStudentAttendances().size(); i++) {
+                int presences = getStudentAttendances().get(j).getPresence();
+                switch (presences) {
+                    case 0 : {
+                        presence++;
+                        break;
+                    }
+                    case 1 : {
+                        absence++;
+                        break;
+                    }
+            }
+        }
+            percentageOfPresence = (presence * 100) / (absence + presence);
+            String percentageValue = String.valueOf(percentageOfPresence);
+            pair.append(name);
+            pair.append(" ");
+            pair.append(percentageValue);
+            presenceToPrint.add(pair.toString());
+        }
+        return presenceToPrint;
+    }
+
 
 }
