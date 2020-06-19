@@ -1,5 +1,6 @@
 package com.codecool.ccms.dao;
 
+import com.codecool.ccms.models.Assignment;
 import com.codecool.ccms.models.Role;
 import com.codecool.ccms.models.User;
 import com.codecool.ccms.models.Attendance;
@@ -104,6 +105,7 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
     }
 
     public void addAttendance(String time) {
+        View view = new View();
         String[] columns = {"datetime"};
         String[] values = {time};
         add("Attendance", columns, values);
@@ -203,5 +205,76 @@ public class UserDaoImpl extends DaoImpl<User> implements UserDao  {
         }
         return attendances;
     }
+
+    public void addAssigment(Assignment assignment) {
+        String id = String.valueOf(nextInt++);
+        createAssigmentColumns(new String[] {assignment.getName(), assignment.getDescription(),assignment.getGrade(),assignment.getAuthor()});
+    }
+
+    private void createAssigmentColumns(String[] values) {
+        String[] columns = {"name", "description","grade","author"};
+        for (int i = 0; i < 4; i++) {
+            values[i] = String.format("'%s'", values[i]);
+        }
+        add("Assignmnet", columns, values);
+    }
+
+    public void removeAssignment(int assigmentId) {
+        String query = "DELETE FROM Assignmnet WHERE id = '" + assigmentId + "'";
+        executeQuery(query);
+    }
+
+    public void prepareToGradeAssigment(String table, String id, String column, String newValue) {
+        String condition = String.format("id = %s", id);
+        edit(table, column, newValue, condition);
+    }
+
+    public void editAssigment(String id, String column, String newValue) {
+        newValue = String.format("'%s'", newValue);
+        prepareToGradeAssigment("Assignmnet", id, column, newValue);
+    }
+
+    public void displayAllAssigment() {
+        sendPrintQueryToDB("SELECT * FROM Assignmnet");
+    }
+
+    public List<Attendance> getStudentAttendances() {
+        List<Attendance> attendance = getAttendance("SELECT * FROM Attendance_check;");
+        return attendance;
+    }
+
+    public List<String> countingPresence() {
+        List<String> presenceToPrint = new ArrayList<>();
+        int absence = 0;
+        int presence = 0;
+        double percentageOfPresence = 0;
+        for (int i = 0; i < getAllStudentsID().size(); i++) {
+            StringBuilder pair = new StringBuilder();
+            String studentID = getAllStudentsID().get(i);
+            String name = getAllStudentsNames().get(i);
+            for (int j = 0; j < getStudentAttendances().size(); i++) {
+                int presences = getStudentAttendances().get(j).getPresence();
+                switch (presences) {
+                    case 0 : {
+                        presence++;
+                        break;
+                    }
+                    case 1 : {
+                        absence++;
+                        break;
+                    }
+            }
+        }
+            percentageOfPresence = (presence * 100) / (absence + presence);
+            String percentageValue = String.valueOf(percentageOfPresence);
+            pair.append(name);
+            pair.append(" ");
+            pair.append(percentageValue);
+            pair.append(" %");
+            presenceToPrint.add(pair.toString());
+        }
+        return presenceToPrint;
+    }
+
 
 }

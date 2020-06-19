@@ -73,8 +73,7 @@ public class View {
                 {"[3] Edit student data"},
                 {"[4] Remove student from class"},
                 {"[5] Check attendance of students"},
-                {"[6] Add an assignments"},
-                {"[7] Grade an assignments"}
+                {"[6] Grade an assignments"},
         };
         System.out.println(FlipTable.of(headers,data));
     }
@@ -86,6 +85,12 @@ public class View {
                 {"[2] Show your grades"}
         };
         System.out.println(FlipTable.of(headers,data));
+    }
+
+    public void printStudentAttendance(List<String> list) {
+        for (String pair : list) {
+            System.out.println(pair);
+        }
     }
 
 }
