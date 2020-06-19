@@ -111,10 +111,10 @@ public abstract class MenuController {
         stringBuilder.append(autorToFormat);
         stringBuilder.append("'");
         String autor = stringBuilder.toString();
-        userDaoImpl.sendPrintQueryToDB("SELECT id, name, description, author FROM Assignmnet WHERE author ="+autor);
+        userDaoImpl.sendPrintQueryToDB("SELECT id, name, description, author,grade FROM Assignmnet WHERE author ="+autor);
     }
 
-    public void editUserAssigment(){
+    public void gradeUserAssigment(){
         String id = view.takeUserInput("Enter user id to edit: ");
         String newValue = view.takeUserInput("Enter new value: ");
         String column = "grade";

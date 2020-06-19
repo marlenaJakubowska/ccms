@@ -12,8 +12,6 @@ public class StudentMenuController extends MenuController{
     public StudentMenuController(User user, View view) {
         super(user, view);
         userDaoImpl = new UserDaoImpl();
-
-        //addUserAssigment(assignment);
         createMainMenuMap();
     }
 
@@ -29,6 +27,5 @@ public class StudentMenuController extends MenuController{
     }
 
     private void showGrades() { displayYourGrades(); }
-    //editUserAssigment();
 
 }
